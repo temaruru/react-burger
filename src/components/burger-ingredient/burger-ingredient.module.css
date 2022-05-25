@@ -1,0 +1,18 @@
+.block {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+}
+
+.price {
+    display: flex;
+    align-items: center;
+}
+
+.indicator {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
