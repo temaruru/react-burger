@@ -1,14 +1,19 @@
+import React, { useState } from "react";
 import PropTypes from 'prop-types';
 import styles from "./burger-ingredient.module.css";
 import {
   Counter,
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import Modal from "../modal/modal";
+import IngredientDetails from "../ingredient-details/ingredient-details";
 
 const BurgerIngredient = (props) => {
+  const [VisibilityModal, setVisibilityModal] = useState(false);
+
   return (
     <>
-      <article className={`${styles.block}`}>
+      <article className={`${styles.block}`} onClick={() => setVisibilityModal(true)}>
         <div className={styles.indicator}>
           <Counter count={1} size="default" />
         </div>
@@ -28,14 +33,15 @@ const BurgerIngredient = (props) => {
           {props.name}
         </p>
       </article>
+      {VisibilityModal && <Modal setVisibilityModal={setVisibilityModal} title="Детали ингредиента"><IngredientDetails {...props} /></Modal>}
     </>
   )
 }
 
-// BurgerIngredient.propTypes = {
-//   name: PropTypes.string,
-//   price: PropTypes.number,
-//   image: PropTypes.string,
-// }
+BurgerIngredient.propTypes = {
+  image: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+}
 
 export default BurgerIngredient;

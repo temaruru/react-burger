@@ -1,0 +1,16 @@
+.content {
+    text-align: center;
+}
+
+.block {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.block_row {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 8px;
+}

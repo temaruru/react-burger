@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from "react";
 import PropTypes from 'prop-types';
 import styles from "./burger-constructor.module.css";
 import {
@@ -7,9 +7,13 @@ import {
   CurrencyIcon,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import arrayData from '../../utils/data';
+import Modal from "../modal/modal";
+import OrderDetails from "../order-details/order-details";
 
-const BurgerConstructor = () => {
+const BurgerConstructor = (props) => {
+  const dataArray = props.apiData.data;
+  const [VisibilityModal, setVisibilityModal] = useState(false);
+
   return (
     <div className={styles.wrapper}>
       <div className={`${styles.constructor} mt-25`}>
@@ -17,15 +21,18 @@ const BurgerConstructor = () => {
           <ConstructorElement
             type="top"
             isLocked={true}
-            text={arrayData[0].name}
-            price={arrayData[0].price}
-            thumbnail={arrayData[0].image_mobile}
+            text={dataArray[0].name}
+            price={dataArray[0].price}
+            thumbnail={dataArray[0].image_mobile}
           />
         </div>
 
         <div className={`${styles.inner} custom-scroll pr-2`}>
-          {arrayData.filter((el) => el.type !== 'bun').map((el, i) =>
-            <div className={styles.item}>
+          {dataArray.filter((el) => el.type !== 'bun').map((el, i) =>
+            <div
+              key={el._id}
+              className={styles.item}
+            >
               <span className="mr-3">
                   <DragIcon />
               </span>
@@ -42,9 +49,9 @@ const BurgerConstructor = () => {
           <ConstructorElement
             type="bottom"
             isLocked={true}
-            text={arrayData[arrayData.length - 1].name}
-            price={arrayData[arrayData.length - 1].price}
-            thumbnail={arrayData[arrayData.length - 1].image_mobile}
+            text={dataArray[dataArray.length - 1].name}
+            price={dataArray[dataArray.length - 1].price}
+            thumbnail={dataArray[dataArray.length - 1].image_mobile}
           />
         </div>
       </div>
@@ -55,12 +62,32 @@ const BurgerConstructor = () => {
           </span>
           <CurrencyIcon type="primary" />
         </div>
-        <Button type="primary" size="large">
+        <Button type="primary" size="large" onClick={() => setVisibilityModal(true)}>
           Оформить заказ
         </Button>
       </div>
+      {VisibilityModal && <Modal setVisibilityModal={setVisibilityModal}><OrderDetails/></Modal>}
     </div>
   )
+}
+
+const BurgerConstructorPropTypes = PropTypes.shape({
+  _id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  image: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+})
+
+const apiDataPropTypes = PropTypes.shape({
+  success: PropTypes.bool,
+  data: PropTypes.arrayOf(BurgerConstructorPropTypes.isRequired).isRequired,
+})
+
+BurgerConstructor.propTypes = {
+  apiData: apiDataPropTypes,
+  setVisibilityModal: PropTypes.func,
+  openModal: PropTypes.object,
 }
 
 export default BurgerConstructor;
