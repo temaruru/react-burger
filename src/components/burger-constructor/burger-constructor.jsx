@@ -13,6 +13,7 @@ import OrderDetails from "../order-details/order-details";
 const BurgerConstructor = (props) => {
   const dataArray = props.apiData.data;
   const [VisibilityModal, setVisibilityModal] = useState(false);
+  const bun = dataArray.find(({ type }) => type === 'bun');
 
   return (
     <div className={styles.wrapper}>
@@ -21,16 +22,16 @@ const BurgerConstructor = (props) => {
           <ConstructorElement
             type="top"
             isLocked={true}
-            text={dataArray[0].name}
-            price={dataArray[0].price}
-            thumbnail={dataArray[0].image_mobile}
+            text={bun.name}
+            price={bun.price}
+            thumbnail={bun.image_mobile}
           />
         </div>
 
         <div className={`${styles.inner} custom-scroll pr-2`}>
-          {dataArray.filter((el) => el.type !== 'bun').map((el, i) =>
+          {dataArray.filter((el, i) => el.type !== 'bun').map((el, i) =>
             <div
-              key={el._id}
+              key={i}
               className={styles.item}
             >
               <span className="mr-3">
@@ -49,9 +50,9 @@ const BurgerConstructor = (props) => {
           <ConstructorElement
             type="bottom"
             isLocked={true}
-            text={dataArray[dataArray.length - 1].name}
-            price={dataArray[dataArray.length - 1].price}
-            thumbnail={dataArray[dataArray.length - 1].image_mobile}
+            text={bun.name}
+            price={bun.price}
+            thumbnail={bun.image_mobile}
           />
         </div>
       </div>
@@ -66,7 +67,7 @@ const BurgerConstructor = (props) => {
           Оформить заказ
         </Button>
       </div>
-      {VisibilityModal && <Modal setVisibilityModal={setVisibilityModal}><OrderDetails/></Modal>}
+      {VisibilityModal && <Modal setVisibilityModal={setVisibilityModal} title=""><OrderDetails/></Modal>}
     </div>
   )
 }

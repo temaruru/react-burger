@@ -27,19 +27,20 @@ const ModalElement = (props) => {
   }
 
   return (
-    <ModalOverlay onClick={closeModal}>
+    <>
       <div className={`${styles.modal} p-10`} onClick={event => event.stopPropagation()}>
         <header className={styles.header}>
           <p className="text text_type_main-large">
             {props.title}
           </p>
           <span className={styles.icon}>
-            <CloseIcon onClick={closeModal} type="primary" />
-          </span>
+          <CloseIcon onClick={closeModal} type="primary" />
+        </span>
         </header>
         {props.children}
       </div>
-    </ModalOverlay>
+      <ModalOverlay onClick={closeModal}></ModalOverlay>
+    </>
   )
 }
 
