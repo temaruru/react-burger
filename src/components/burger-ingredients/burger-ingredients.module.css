@@ -1,0 +1,24 @@
+.wrapper {
+    width: 50%;
+}
+
+.tabs {
+    display: flex;
+}
+
+.content {
+    max-height: calc(100vh - 245px);
+    overflow-y: auto;
+}
+
+.content_list {
+    display: grid;
+    grid-row-gap: 32px;
+    grid-column-gap: 24px;
+    grid-template-columns: 1fr 1fr;
+    padding: 24px 16px 0;
+}
+
+.content_list:last-child {
+    padding-bottom: 40px;
+}

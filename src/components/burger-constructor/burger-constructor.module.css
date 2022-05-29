@@ -1,0 +1,29 @@
+.wrapper {
+    width: 50%;
+}
+
+.constructor {
+    display: flex;
+    flex-flow: column;
+    align-items: end;
+    gap: 10px;
+}
+
+.action {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.inner {
+    max-height: calc(100vh - 510px);
+    overflow-y: auto;
+    display: flex;
+    flex-flow: column;
+    gap: 10px;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+}
